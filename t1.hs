@@ -51,11 +51,25 @@ aux4 x
         | x == 'i' = '2'
         | x == 'o' = '1'
         | x == 'u' = '0'
+        | otherwise = x
 encodeName :: String -> String
-encodeName xs = map ( \x -> if ( isVowel x ) then ( aux4 x ) else x ) xs
+encodeName xs = map aux4 xs
 
 
+--exercicio 11
+--aux5 x 
+--        | x == 'a' = '4' 
+--        | x == 'e' = '3'
+--        | x == 'i' = '1'
+--        | x == 'o' = '0'
+--        | x == 'u' = '0'
+--betterEncodeName :: String -> String
+--betterEncodeName xs = map ( \x -> if ( isVowel x ) then ( aux5 x ) else x ) xs
 
+--exercicio 12
+tenLetters :: [String] -> [String]
+trunca xs = ( length xs ) >= 10
+tenLetters xs = map ( \x -> if trunca x then ( take 10 x ) else (take 10 ( x ++ ".........." ) ) ) xs
 
 
 
