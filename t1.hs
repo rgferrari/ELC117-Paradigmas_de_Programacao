@@ -20,5 +20,6 @@ semVogais x = filter (not . aux2) x
 
 --exercicio 5
 codifica :: String -> String
-aux3 x = filter(==' ')x
-codifica x = if legth aux3 == 0 then putStrLn '-'
+--codifica xs = map ( \x -> if ( x /= ' ' ) then '-' else x ) xs
+aux3 x = if ( x /= ' ' ) then '-' else x
+codifica xs = map aux3 xs
