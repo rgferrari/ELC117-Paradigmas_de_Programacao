@@ -46,25 +46,27 @@ userName xs = map toLower ( [ head ( firstName xs ) ] ++ ( lastName xs ) )
 
 aux4 :: Char -> Char
 aux4 x 
-        | x == 'a' = '4' 
-        | x == 'e' = '3'
-        | x == 'i' = '2'
-        | x == 'o' = '1'
-        | x == 'u' = '0'
+        | ( toLower x ) == 'a' = '4' 
+        | ( toLower x ) == 'e' = '3'
+        | ( toLower x ) == 'i' = '2'
+        | ( toLower x ) == 'o' = '1'
+        | ( toLower x ) == 'u' = '0'
         | otherwise = x
 encodeName :: String -> String
 encodeName xs = map aux4 xs
 
 
 --exercicio 11
---aux5 x 
---        | x == 'a' = '4' 
---        | x == 'e' = '3'
---        | x == 'i' = '1'
---        | x == 'o' = '0'
---        | x == 'u' = '0'
---betterEncodeName :: String -> String
---betterEncodeName xs = map ( \x -> if ( isVowel x ) then ( aux5 x ) else x ) xs
+aux5 x 
+        | ( toLower x ) == 'a' = "4"
+        | ( toLower x ) == 'e' = "3"
+        | ( toLower x ) == 'i' = "1"
+        | ( toLower x ) == 'o' = "0"
+        | ( toLower x ) == 'u' = "00"
+        | otherwise = [x]
+
+betterEncodeName :: String -> String
+betterEncodeName xs = concatMap (\x -> aux5 x) xs
 
 --exercicio 12
 tenLetters :: [String] -> [String]
