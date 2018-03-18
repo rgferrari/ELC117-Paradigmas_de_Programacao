@@ -1,3 +1,5 @@
+import Data.Char
+
 --exercico 1
 isVowel :: Char -> Bool
 isVowel c = elem c "aeiou"
@@ -35,3 +37,30 @@ isInt xs = length ( filter ( not . \x -> elem x "0123456789") xs ) == 0
 --exercicio 8
 lastName :: String -> String
 lastName xs = reverse ( takeWhile (/= ' ') ( reverse xs ) )
+
+--exercicio 9 
+userName :: String -> String
+userName xs = map toLower ( [ head ( firstName xs ) ] ++ ( lastName xs ) ) 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
