@@ -42,14 +42,17 @@ lastName xs = reverse ( takeWhile (/= ' ') ( reverse xs ) )
 userName :: String -> String
 userName xs = map toLower ( [ head ( firstName xs ) ] ++ ( lastName xs ) ) 
  
+--exercicio 10
 
-
-
-
-
-
-
-
+aux4 :: Char -> Char
+aux4 x 
+        | x == 'a' = '4' 
+        | x == 'e' = '3'
+        | x == 'i' = '2'
+        | x == 'o' = '1'
+        | x == 'u' = '0'
+encodeName :: String -> String
+encodeName xs = map ( \x -> if ( isVowel x ) then ( aux4 x ) else x ) xs
 
 
 
