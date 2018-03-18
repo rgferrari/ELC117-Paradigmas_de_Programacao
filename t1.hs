@@ -28,3 +28,6 @@ codifica xs = map aux3 xs
 firstName :: String -> String
 firstName xs = takeWhile (/= ' ') xs
 
+--exercicio 7
+isInt :: String -> Bool
+isInt xs = length ( filter ( not . \x -> elem x "0123456789") xs ) == 0
