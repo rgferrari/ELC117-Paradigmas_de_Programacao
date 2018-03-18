@@ -23,3 +23,8 @@ codifica :: String -> String
 --codifica xs = map ( \x -> if ( x /= ' ' ) then '-' else x ) xs
 aux3 x = if ( x /= ' ' ) then '-' else x
 codifica xs = map aux3 xs
+
+--exercicio 6
+firstName :: String -> String
+firstName xs = takeWhile (/= ' ') xs
+
