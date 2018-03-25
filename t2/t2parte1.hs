@@ -14,3 +14,9 @@ checkChar c (x:str)
 coordenadas :: [(Float,Float)] -> [(Float,Float)]
 coordenadas [] = [];
 coordenadas ((x,x1):xs) = (x+2, x1+2) : coordenadas xs
+
+--exercicio 4
+geraTabela' :: Int -> [(Int,Int)]
+aux 0 = [];
+aux x = (x, x^2) : aux(x-1)
+geraTabela' x = reverse (aux x)
