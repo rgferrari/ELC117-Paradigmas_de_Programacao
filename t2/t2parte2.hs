@@ -23,9 +23,8 @@ bin2dec [] = undefined
 bin2dec bits = auxBin2Dec bits ((length bits)-1)
 
 --exercicio 4
---bin2dec' :: [Int] -> Int 
---auxBin2Dec' (x:xs) = ( x * ( 2^ (length xs) ) )
---bin2dec' xs = map auxBin2Dec' xs
+bin2dec' :: [Int] -> Int 
+bin2dec' xs = sum ( zipWith (*) xs ( reverse [2^x | x <- [0..(length xs)-1]] ) )
 
 --exercicio 5
 dec2bin :: Int -> [Int]
