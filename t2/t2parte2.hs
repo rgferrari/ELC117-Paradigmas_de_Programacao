@@ -33,3 +33,8 @@ dec2binAux 0 = [0]
 dec2binAux 1 = [1]
 dec2binAux x = ( x `mod` 2 ) : ( dec2binAux ( x `div` 2 ) ) 
 dec2bin x = reverse ( dec2binAux x )
+
+--exercicio 6
+isHex :: String -> Bool
+isHex "" = undefined
+isHex xs = ( length ( filter ( \x -> notElem x "0123456789ABCDEFabcdef" ) xs ) ) == 0
