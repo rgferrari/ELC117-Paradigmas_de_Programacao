@@ -27,11 +27,11 @@ chi2 :: [Float] -> [Float] -> Float
 chi2 os es = sum [((o-e)^2)/e | (o,e) <- zip os es]
 
 -- Use esta funcao para decodificar uma mensagem!
---crack :: String -> String
---crack cs = encodeStr cs (-factor)
-           --where factor = head (positions (minimum chitab) chitab)
-                 --chitab = [ chi2 (rotate n table' ) table | n <- [0..25] ]
-                 --table' = freqs cs
+crack :: String -> String
+crack cs = encodeStr cs (-factor)
+           where factor = head (positions (minimum chitab) chitab)
+                 chitab = [ chi2 (rotate n table' ) table | n <- [0..25] ]
+                 table' = freqs cs
 
 -- exercicio 1
 shiftChar :: Char -> Int -> Char  
@@ -55,3 +55,8 @@ countChar c str = length ( filter ( \x -> x == c ) str )
 -- exercicio 5
 freqs :: String -> [Float]
 freqs str = map(\c -> percent ( countChar c str ) ( countValids str ) )['a'..'z']
+
+-- exercicio 6
+positions :: Float -> [Float] -> [Int]
+positionsAux xs = zip xs [0..(length xs)] 
+positions x xs = map snd $ filter ((==x).fst) (positionsAux xs)
