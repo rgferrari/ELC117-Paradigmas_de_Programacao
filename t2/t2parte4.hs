@@ -48,5 +48,10 @@ encodeStr (c:str) x = shiftChar c x  : encodeStr str x
 countValids :: String -> Int
 countValids str = length ( filter ( \c -> elem c ['a'..'z'] )str )
 
+-- exercicio 4
 countChar :: Char -> String -> Int
 countChar c str = length ( filter ( \x -> x == c ) str )
+
+-- exercicio 5
+freqs :: String -> [Float]
+freqs str = map(\c -> percent ( countChar c str ) ( countValids str ) )['a'..'z']
