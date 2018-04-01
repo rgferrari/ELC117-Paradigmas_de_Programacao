@@ -33,5 +33,7 @@ chi2 os es = sum [((o-e)^2)/e | (o,e) <- zip os es]
                  --chitab = [ chi2 (rotate n table' ) table | n <- [0..25] ]
                  --table' = freqs cs
 
-shiftChar :: Char -> Int -> Char
-shiftChar c x = decodeChar ( encodeChar ( c ) + x)
+shiftChar :: Char -> Int -> Char  
+shiftChar c x 
+	| ( encodeChar ( c ) + x ) > 25 = shiftChar c ( x - 26 )
+	| x <= 25 = decodeChar ( encodeChar ( c ) + x )
