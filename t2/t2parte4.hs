@@ -46,4 +46,7 @@ encodeStr (c:str) x = shiftChar c x  : encodeStr str x
 
 -- exercicio 3
 countValids :: String -> Int
-countValids str = length ( filter (\c -> elem c ['a'..'z'])str )
+countValids str = length ( filter ( \c -> elem c ['a'..'z'] )str )
+
+countChar :: Char -> String -> Int
+countChar c str = length ( filter ( \x -> x == c ) str )
