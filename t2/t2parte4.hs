@@ -43,3 +43,7 @@ shiftChar c x
 encodeStr :: String -> Int -> String
 encodeStr "" x = ""
 encodeStr (c:str) x = shiftChar c x  : encodeStr str x
+
+-- exercicio 3
+countValids :: String -> Int
+countValids str = length ( filter (\c -> elem c ['a'..'z'])str )
