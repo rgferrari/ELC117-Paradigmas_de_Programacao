@@ -10,3 +10,4 @@ isEanOkAux1 xs = ( ( head xs ) * 1 ) + ( isEanOkAux3 ( tail xs ) )
 isEanOk xs
     | ( length xs ) /= 13 = undefined
     | otherwise = ( ( last (toInt xs) ) + ( isEanOkAux1 (init (toInt xs) ) ) ) `mod` 10 == 0
+

@@ -36,8 +36,10 @@ crack cs = encodeStr cs (-factor)
 -- exercicio 1
 shiftChar :: Char -> Int -> Char  
 shiftChar c x
+	| ( encodeChar c ) > 25 || ( encodeChar c ) < 0 = c 
     | ( encodeChar ( c ) + x ) > 25 = shiftChar c ( x - 26 )
     | x <= 25 = decodeChar ( encodeChar ( c ) + x )
+
 
 -- exercicio 2
 encodeStr :: String -> Int -> String
