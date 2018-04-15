@@ -25,3 +25,12 @@ pow(2, N, C),
 L = [C | T],
 N1 is N - 1,
 potN0(N1,T).
+
+% exercicio 5
+zipmult([],[],[]).
+zipmult(L1,L2,L3) :-
+L1 = [C | T],
+L2 = [C1 | T1],
+B is C * C1,
+L3 = [B | T2],
+zipmult(T,T1,T2).
