@@ -19,7 +19,7 @@ hasN(L, N) :-
 length(L, N).
 
 % exercicio 4
-potN0(0, []).
+potN0(-1, []).
 potN0(N, L) :-
 pow(2, N, C),
 L = [C | T],
@@ -34,3 +34,15 @@ L2 = [C1 | T1],
 B is C * C1,
 L3 = [B | T2],
 zipmult(T,T1,T2).
+
+% exercicio 6
+potenciasAux(-1,[]).
+potenciasAux(N,L) :-
+pow(2,N,X),
+L = [X | T],
+N1 is N - 1,
+potenciasAux(N1,T).
+
+potencias(N,L):-
+potenciasAux(N,A),
+reverse(A,L).
