@@ -63,4 +63,23 @@ positivos(T,L2).
 
 
 % exercicio 8
-%mesmaPosicao(A,L1,L2):-
+% consegui fazer de duas formas
+/*
+mesmaPosicao(_,[],[]):-
+false.
+mesmaPosicao(A,L1,L2):-
+L1 = [H | _],
+L2 = [H1 | _],
+A = H,
+A = H1.
+
+mesmaPosicao(A,L1,L2):-
+L1 = [_ | T],
+L2 = [_ | T1],
+mesmaPosicao(A,T,T1).
+*/
+mesmaPosicao(A,[A | _],[A | _]).
+mesmaPosicao(A,L1,L2):-
+L1 = [_ | T],
+L2 = [_ | T1],
+mesmaPosicao(A,T,T1).
