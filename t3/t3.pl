@@ -46,3 +46,21 @@ potenciasAux(N1,T).
 potencias(N,L):-
 potenciasAux(N,A),
 reverse(A,L).
+
+
+% exercicio 7
+positivos([],[]).
+positivos(L1,L2) :-
+L1 = [H | T],
+L2 = [H1 | T1],
+H > 0,
+H1 is H,
+positivos(T,T1).
+
+positivos(L1,L2) :-
+L1 = [_ | T],
+positivos(T,L2).
+
+
+% exercicio 8
+%mesmaPosicao(A,L1,L2):-
