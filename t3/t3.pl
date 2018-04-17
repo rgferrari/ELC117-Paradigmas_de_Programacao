@@ -64,7 +64,8 @@ positivos(T,L2).
 
 % exercicio 8
 % consegui fazer de duas formas
-/*
+
+/* Forma 1:
 mesmaPosicao(_,[],[]):-
 false.
 mesmaPosicao(A,L1,L2):-
@@ -78,8 +79,30 @@ L1 = [_ | T],
 L2 = [_ | T1],
 mesmaPosicao(A,T,T1).
 */
+%Forma 2:
 mesmaPosicao(A,[A | _],[A | _]).
 mesmaPosicao(A,L1,L2):-
 L1 = [_ | T],
 L2 = [_ | T1],
 mesmaPosicao(A,T,T1).
+
+% exercicio 9
+comissao(0, _, []) :- !.
+comissao(NP, LP, [H | T]) :-
+    NP > 0,
+    NP1 is NP - 1,
+    comissaoAux(H, LP, A),
+    comissao(NP1, A, T).
+
+comissaoAux(X, [X | LP], LP).
+comissaoAux(X, [_ | LP], T) :- 
+    comissaoAux(X, LP, T).
+
+% exercicio 10
+azulejos(0, 0) :- !.
+azulejos(NA, NQ) :-
+    sqrt(NA, X),
+    floor(X, N),
+    NA1 is NA - N*N,
+    azulejos(NA1, NQ1),
+NQ is 1 + NQ1.
