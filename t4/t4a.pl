@@ -25,24 +25,25 @@ no CD cada sucesso de rock toca imediatamente após uma composição da banda).
 split([H|T],H,[],T).
 
 split([H|T],E,[H|F],S) :- 
-split(T,E,F,S).
+	split(T,E,F,S).
 
 ocupa(X, Y, CD):-
-nth0(X, CD, Y).
+	nth0(X, CD, Y).
 
 precede(X, Y, CD):-
-split(CD, Y, A, _),
-member(X, A).
+	split(CD, Y, A, _),
+	member(X, A).
 
 % Cada sucesso de rock é imediatamente precedido no CD por uma composição da banda.
-rock(X, [_,_,_,_,_,X,_]) :-
-	\+ nextto(z, X, [_,_,_,_,_,X,_]).
-
 rock(z, CD) :-
 	CD = [H|_],
 	H \= z,
 	nextto(X, z, CD),
 	\+ rock(X, CD).
+
+rock(X, CD) :-
+	CD = [_,_,_,_,_,X,_],
+	\+ nextto(z, X, CD). 	
 
 /*
 Questão 11.
@@ -61,19 +62,19 @@ para a sétima faixa?
 
 solucao(CD) :-
 % S ocupa a quarta faixa do CD.
-ocupa(3, s, CD),
+	ocupa(3, s, CD),
 
 % Tanto W como Y precedem S no CD.
-precede(w, s, CD),
-precede(y, s, CD),
+	precede(w, s, CD),
+	precede(y, s, CD),
 
 % T precede W no CD.
-precede(t, w, CD),
+	precede(t, w, CD),
 
 % Um sucesso de rock ocupa a sexta faixa do CD.
-CD = [_,_,_,_,_,X,_],
-rock(X, CD),
+	CD = [_,_,_,_,_,X,_],
+	rock(X, CD),
 
 % Z é um sucesso de rock 
-rock(z, CD).
+	rock(z, CD).
 
