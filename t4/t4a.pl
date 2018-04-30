@@ -27,21 +27,23 @@ split([H|T],H,[],T).
 split([H|T],E,[H|F],S) :- 
 	split(T,E,F,S).
 
-ocupa(X, Y, CD):-
+regra1(X, Y, CD):-
 	nth0(X, CD, Y).
 
-precede(X, Y, CD):-
+regra2(X, Y, CD):-
 	split(CD, Y, A, _),
 	member(X, A).
 
 % Cada sucesso de rock é imediatamente precedido no CD por uma composição da banda.
-rock(z, CD) :-
+% Z é um sucesso de rock 
+regra3(z, CD) :-
 	CD = [H|_],
 	H \= z,
 	nextto(X, z, CD),
-	\+ rock(X, CD).
+	\+ regra3(X, CD).
 
-rock(X, CD) :-
+% Um sucesso de rock ocupa a sexta faixa do CD.
+regra3(X, CD) :-
 	CD = [_,_,_,_,_,X,_],
 	\+ nextto(z, X, CD). 	
 
@@ -58,23 +60,31 @@ para a sétima faixa?
 (E) Z, T, X, W, V, Y, S
 */
 
+/*
+(A) solucao([t, w, v, s, y, x, z]). false
+(B) solucao([v, y, t, s, w, z, x]). false
+(C) solucao([x, y, w, s, t, z, s]). false
+(D) solucao([y, t, w, s, x, z, v]).	true
+(E) solucao([z, t, x, w, v, y, s]). false
+*/
+
 % Solução da questão 11:
 
 solucao(CD) :-
 % S ocupa a quarta faixa do CD.
-	ocupa(3, s, CD),
+	regra1(3, s, CD),
 
 % Tanto W como Y precedem S no CD.
-	precede(w, s, CD),
-	precede(y, s, CD),
+	regra2(w, s, CD),
+	regra2(y, s, CD),
 
 % T precede W no CD.
-	precede(t, w, CD),
+	regra2(t, w, CD),
 
 % Um sucesso de rock ocupa a sexta faixa do CD.
 	CD = [_,_,_,_,_,X,_],
-	rock(X, CD),
+	regra3(X, CD),
 
 % Z é um sucesso de rock 
-	rock(z, CD).
+	regra3(z, CD).
 
