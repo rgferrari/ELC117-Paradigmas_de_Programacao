@@ -21,13 +21,12 @@ import javafx.scene.layout.VBox;
 
 public class EditorDeGrafo extends Application{
 
-    //private Color color;
     private boolean arestaExiste = false;
     private int tamanho = 10;
     Circle c;
     Line l;
 
-    public String toRGBCode(double r, double g, double b)
+    public String toHexa(double r, double g, double b)
     {
         return String.format( "#%02X%02X%02X",
                 (int)( r * 255 ),
@@ -52,26 +51,6 @@ public class EditorDeGrafo extends Application{
         ColorPicker colorPicker = new ColorPicker(Color.RED);
 
         colorPicker.getValue().getRed();
-
-
-        /*
-        cores.add(Color.RED);
-        cores.add(Color.ORANGERED);
-        cores.add(Color.CRIMSON);
-
-        ChoiceBox<String> cbCores = new ChoiceBox<>();
-        cbCores.getItems().addAll("Vermelho", "Laranja", "Rosa");
-        cbCores.setValue("Vermelho");
-
-        cbCores.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                color = cores.get(newValue.intValue());
-            }
-        });
-
-        cbCores.setTooltip(new Tooltip("Selecione a cor"));
-        */
 
         tamanhos[0] = 10;
         tamanhos[1] = 15;
@@ -138,7 +117,7 @@ public class EditorDeGrafo extends Application{
                 if (cbTipo.getValue() == "Vértice"){
                     if(grafo.verificarPosicaoVertice(e.getX(), e.getY(), tamanho)){
                         c = new Circle(e.getX(), e.getY(), tamanho, colorPicker.getValue());
-                        grafo.addVertice(c, toRGBCode(colorPicker.getValue().getRed(), colorPicker.getValue().getGreen(), colorPicker.getValue().getBlue()));
+                        grafo.addVertice(c, toHexa(colorPicker.getValue().getRed(), colorPicker.getValue().getGreen(), colorPicker.getValue().getBlue()));
                         pane.getChildren().add(c);
                         labelVertices.setText("Vértices: " + grafo.getNumeroDeVertices());
                     }
@@ -178,11 +157,10 @@ public class EditorDeGrafo extends Application{
                         l.setEndX(grafo.buscarVertice(e.getX(), e.getY()).getVerticeX());
                         l.setEndY(grafo.buscarVertice(e.getX(), e.getY()).getVerticeY());
                         if (!(l.getStartX() == l.getEndX() && l.getStartY() == l.getEndY()) && !grafo.mesmaAresta(l)){
-                            grafo.addAresta(grafo.buscarVertice(l.getStartX(), l.getStartY()), grafo.buscarVertice(l.getEndX(), l.getEndY()), l, toRGBCode(colorPicker.getValue().getRed(), colorPicker.getValue().getGreen(), colorPicker.getValue().getBlue()));
+                            grafo.addAresta(grafo.buscarVertice(l.getStartX(), l.getStartY()), grafo.buscarVertice(l.getEndX(), l.getEndY()), l, toHexa(colorPicker.getValue().getRed(), colorPicker.getValue().getGreen(), colorPicker.getValue().getBlue()));
                             labelArestas.setText("Arestas: " + grafo.getNumeroDeArestas());
                             labelIntersecoes.setText("Interseções: " + grafo.getNumeroDeIntersecoes());
                             arestaExiste = false;
-                            //System.out.println( toRGBCode(colorPicker.getValue().getRed(), colorPicker.getValue().getGreen(), colorPicker.getValue().getBlue()));
                         }
                         else{
                             pane.getChildren().remove(l);

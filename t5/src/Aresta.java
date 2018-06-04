@@ -1,29 +1,29 @@
 import javafx.scene.shape.Line;
 
 public class Aresta {
-    private Vertice ini;
+    private Vertice inicio;
     private Vertice fim;
     private Line l;
-    String rgb = new String();
+    String hexa = new String();
 
-    public Aresta(Vertice ini, Vertice fim, Line l, String rgb) {
-        this.ini = ini;
+    public Aresta(Vertice inicio, Vertice fim, Line l, String hexa) {
+        this.inicio = inicio;
         this.fim = fim;
         this.l = l;
-        this.rgb = rgb;
+        this.hexa = hexa;
     }
 
-    public Vertice getIni() {
-        return ini;
+    public Vertice getInicio() {
+        return inicio;
     }
 
     public Vertice getFim() {
         return fim;
     }
 
-    public Line getLinha() {
+    public Line getLine() {
         return l;
     }
 
-    public String getRgb(){ return rgb;}
+    public String getHexa(){ return hexa;}
 }

@@ -35,9 +35,11 @@ public class Grafo {
         this.numeroDeVertices++;
     }
 
-    public boolean dentroDoCirulo(double x, double y, Circle circ){
-        double distance = Math.hypot(x-circ.getCenterX(), y-circ.getCenterY());
-        if (distance <= circ.getRadius() + 4){
+    public boolean dentroDoCirulo(double x, double y, Circle circulo){
+        double distX = x - circulo.getCenterX();
+        double distY = y - circulo.getCenterY();
+        double distancia = Math.sqrt(distX*distX + distY*distY);
+        if (distancia <= circulo.getRadius()){
             return true;
         }else{
             return false;
@@ -59,8 +61,8 @@ public class Grafo {
         for (Vertice v: this.vertices){
             double distX = x - v.getVerticeX();
             double distY = y - v.getVerticeY();
-            double distance = Math.sqrt(distX*distX + distY*distY);
-            if (distance <= raio + v.getVerticeRadius()){
+            double distancia = Math.sqrt(distX*distX + distY*distY);
+            if (distancia <= raio + v.getVerticeRadius()){
                 return false;
             }
         }
@@ -78,14 +80,14 @@ public class Grafo {
 
     // Verifica se as arestas estao no mesmo vertice
     private boolean mesmoVertice(Aresta a1, Aresta a2){
-        return (a1.getIni().equals(a2.getIni()) || a1.getIni().equals(a2.getFim()) ||
-                a1.getFim().equals(a2.getIni()) || a1.getFim().equals(a2.getFim()));
+        return (a1.getInicio().equals(a2.getInicio()) || a1.getInicio().equals(a2.getFim()) ||
+                a1.getFim().equals(a2.getInicio()) || a1.getFim().equals(a2.getFim()));
     }
 
     // Checa se ja existe uma aresta entre os dois pontos
     public boolean mesmaAresta(Line line){
         for(Aresta a1: this.arestas){
-            if((a1.getIni().equals(buscarVertice(line.getStartX(), line.getStartY())) && a1.getFim().equals(buscarVertice(line.getEndX(), line.getEndY())) || a1.getFim().equals(buscarVertice(line.getStartX(), line.getStartY())) && a1.getIni().equals(buscarVertice(line.getEndX(), line.getEndY())))){
+            if((a1.getInicio().equals(buscarVertice(line.getStartX(), line.getStartY())) && a1.getFim().equals(buscarVertice(line.getEndX(), line.getEndY())) || a1.getFim().equals(buscarVertice(line.getStartX(), line.getStartY())) && a1.getInicio().equals(buscarVertice(line.getEndX(), line.getEndY())))){
                 return true;
             }
         }
@@ -94,8 +96,8 @@ public class Grafo {
 
     // Verifica se há intersecao entre duas arestas
     private boolean intersecao(Aresta a1, Aresta a2){
-        return (Line2D.linesIntersect(a1.getIni().getVerticeX(), a1.getIni().getVerticeY(), a1.getFim().getVerticeX(), a1.getFim().getVerticeY(),
-                a2.getIni().getVerticeX(), a2.getIni().getVerticeY(), a2.getFim().getVerticeX(), a2.getFim().getVerticeY()));
+        return (Line2D.linesIntersect(a1.getInicio().getVerticeX(), a1.getInicio().getVerticeY(), a1.getFim().getVerticeX(), a1.getFim().getVerticeY(),
+                a2.getInicio().getVerticeX(), a2.getInicio().getVerticeY(), a2.getFim().getVerticeX(), a2.getFim().getVerticeY()));
     }
 
     public int getNumeroDeIntersecoes(){
@@ -121,10 +123,10 @@ public class Grafo {
             writer.println("<body>");
             writer.println("<svg height=\"1366\" width=\"768\">");
             for (Aresta a: this.arestas){
-                writer.println("<line x1=\""+a.getIni().getVerticeX()+"\" y1=\""+a.getIni().getVerticeY()+"\" x2=\""+a.getFim().getVerticeX()+"\" y2=\""+a.getFim().getVerticeY()+"\" style=\"stroke:"+a.getRgb()+";stroke-width:"+a.getLinha().getStrokeWidth()+"\" />");
+                writer.println("<line x1=\""+a.getInicio().getVerticeX()+"\" y1=\""+a.getInicio().getVerticeY()+"\" x2=\""+a.getFim().getVerticeX()+"\" y2=\""+a.getFim().getVerticeY()+"\" style=\"stroke:"+a.getHexa()+";stroke-width:"+a.getLine().getStrokeWidth()+"\" />");
             }
             for (Vertice v: this.vertices){
-                writer.println("<circle cx=\""+v.getVerticeX()+"\" cy=\""+v.getVerticeY()+"\" r=\""+v.getVerticeRadius()+"\" fill=\""+v.getRgb()+"\" />");
+                writer.println("<circle cx=\""+v.getVerticeX()+"\" cy=\""+v.getVerticeY()+"\" r=\""+v.getVerticeRadius()+"\" fill=\""+v.getHexa()+"\" />");
             }
             writer.println("</svg>");
             writer.println("</body>");
