@@ -24,14 +24,6 @@ Button:hover{
     -fx-text-fill: white;
 }
 
-.btnVertice{
-
-}
-
-.btnAresta{
-
-}
-
 Label{
     -fx-padding: 0 0 0 5;
     -fx-border-color: black;
@@ -43,6 +35,14 @@ Label{
 }
 
 ChoiceBox{
+    -fx-border-color: black;
+    -fx-min-width: 100;
+    -fx-min-height: 40;
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+}
+
+ColorPicker{
     -fx-border-color: black;
     -fx-min-width: 100;
     -fx-min-height: 40;

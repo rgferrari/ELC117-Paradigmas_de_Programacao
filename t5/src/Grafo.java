@@ -82,6 +82,16 @@ public class Grafo {
                 a1.getFim().equals(a2.getIni()) || a1.getFim().equals(a2.getFim()));
     }
 
+    // Checa se ja existe uma aresta entre os dois pontos
+    public boolean mesmaAresta(Line line){
+        for(Aresta a1: this.arestas){
+            if((a1.getIni().equals(buscarVertice(line.getStartX(), line.getStartY())) && a1.getFim().equals(buscarVertice(line.getEndX(), line.getEndY())) || a1.getFim().equals(buscarVertice(line.getStartX(), line.getStartY())) && a1.getIni().equals(buscarVertice(line.getEndX(), line.getEndY())))){
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Verifica se há intersecao entre duas arestas
     private boolean intersecao(Aresta a1, Aresta a2){
         return (Line2D.linesIntersect(a1.getIni().getVerticeX(), a1.getIni().getVerticeY(), a1.getFim().getVerticeX(), a1.getFim().getVerticeY(),
@@ -108,12 +118,12 @@ public class Grafo {
             PrintWriter writer = new PrintWriter(new Date().getTime() + ".svg", "UTF-8");
             writer.println("<html>");
             writer.println("<body>");
-            writer.println("<svg height=\"854\" width=\"480\">");
-            for (Aresta refA: this.arestas){
-                writer.println("<line x1=\""+refA.getIni().getVerticeX()+"\" y1=\""+refA.getIni().getVerticeY()+"\" x2=\""+refA.getFim().getVerticeX()+"\" y2=\""+refA.getFim().getVerticeY()+"\" style=\"stroke: rgb(255,0,0);stroke-width:"+refA.getLinha().getStrokeWidth()+"\" />");
+            writer.println("<svg height=\"1366\" width=\"768\">");
+            for (Aresta a: this.arestas){
+                writer.println("<line x1=\""+a.getIni().getVerticeX()+"\" y1=\""+a.getIni().getVerticeY()+"\" x2=\""+a.getFim().getVerticeX()+"\" y2=\""+a.getFim().getVerticeY()+"\" style=\"stroke: rgb(255,0,0);stroke-width:"+a.getLinha().getStrokeWidth()+"\" />");
             }
-            for (Vertice refV: this.vertices){
-                writer.println("<circle cx=\""+refV.getVerticeX()+"\" cy=\""+refV.getVerticeY()+"\" r=\""+refV.getVerticeRadius()+"\" stroke=\"green\" stroke-width=\""+refV.getVerticeCircle().getStrokeWidth()+"\" fill=\"\" />");
+            for (Vertice v: this.vertices){
+                writer.println("<circle cx=\""+v.getVerticeX()+"\" cy=\""+v.getVerticeY()+"\" r=\""+v.getVerticeRadius()+"\" stroke=\"green\" stroke-width=\""+v.getVerticeCircle().getStrokeWidth()+"\" fill=\"\" />");
             }
             writer.println("</svg>");
             writer.println("</body>");

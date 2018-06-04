@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class EditorDeGrafo extends Application{
 
     private Color color = Color.RED;
-    //private boolean option = true;
     private boolean arestaExiste = false;
     private int tamanho = 10;
     Circle c;
@@ -42,6 +41,11 @@ public class EditorDeGrafo extends Application{
         Label labelVertices = new Label("Vertices: " + grafo.getNumeroDeVertices());
         Label labelArestas = new Label("Arestas: " + grafo.getNumeroDeArestas());
         Label labelIntersecoes = new Label("Interseções: " + grafo.getNumeroDeIntersecoes());
+
+        /*--------------Botões do Menu de Ferramentas-------------*/
+
+        ColorPicker colorPicker = new ColorPicker(Color.RED);
+
 
 
         cores.add(Color.RED);
@@ -77,41 +81,17 @@ public class EditorDeGrafo extends Application{
             }
         });
 
+
         cbTamanhos.setTooltip(new Tooltip("Selecione o tamanho"));
-
-
-
 
         ChoiceBox<String> cbTipo = new ChoiceBox<>();
         cbTipo.getItems().addAll("Vértice", "Aresta");
         cbTipo.setValue("Vértice");
 
-
         cbTipo.setTooltip(new Tooltip("Selecione a ferramenta"));
 
-        /*--------------Botões do Menu de Ferramentas-------------*/
-        /*
-        Button btnGrande = new Button("Grande");
 
-        Button btnMedio = new Button("Médio");
 
-        Button btnPequeno = new Button("Pequeno");
-
-        Button btnVertice = new Button("Vértice");
-        btnVertice.getStyleClass().add("btnVertice");
-
-        Button btnAresta = new Button("Aresta");
-        btnAresta.getStyleClass().add("btnAresta");
-
-        Button btnLaranja = new Button("Laranja");
-        btnLaranja.getStyleClass().add("btnLaranja");
-
-        Button btnVermelho = new Button("Vermelho");
-        btnVermelho.getStyleClass().add("btnVermelho");
-
-        Button btnRosa = new Button("Rosa");
-        btnRosa.getStyleClass().add("btnRosa");
-        */
         /*----------------------Botões do Menu---------------------*/
 
         Button btnNovo = new Button("Novo Grafo");
@@ -121,37 +101,7 @@ public class EditorDeGrafo extends Application{
         Button btnSair = new Button("Sair");
 
         /*----------------------Ação dos Botões--------------------*/
-        /*
-        btnGrande.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                tamanho = 20;
-            }
-        });
 
-        btnMedio.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                tamanho = 15;
-            }
-        });
-
-        btnPequeno.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                tamanho = 10;
-            }
-        });
-
-        btnVertice.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                option = true;
-            }
-        });
-
-        btnAresta.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                option = false;
-            }
-        });
-        */
         btnSair.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 System.exit(0);
@@ -160,7 +110,6 @@ public class EditorDeGrafo extends Application{
 
         btnNovo.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                //grafo.resetN();
                 Grafo grafo = new Grafo();
                 start(stage);
                 labelVertices.setText("Vértices: " + grafo.getNumeroDeVertices());
@@ -174,30 +123,14 @@ public class EditorDeGrafo extends Application{
                 grafo.criarSVG();
             }
         });
-    /*
-        btnLaranja.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                color = Color.ORANGERED;
-            }
-        });
-        btnVermelho.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                color = Color.RED;
-            }
-        });
-        btnRosa.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                color = Color.CRIMSON;
-            }
-        });
-    */
+
         /*---------------------Ações do Mouse-----------------------*/
 
         pane.setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent e) {
                 if (cbTipo.getValue() == "Vértice"){
                     if(grafo.verificarPosicaoVertice(e.getX(), e.getY(), tamanho)){
-                        c = new Circle(e.getX(), e.getY(), tamanho, color);
+                        c = new Circle(e.getX(), e.getY(), tamanho, colorPicker.getValue());
                         grafo.addVertice(c);
                         pane.getChildren().add(c);
                         labelVertices.setText("Vértices: " + grafo.getNumeroDeVertices());
@@ -209,7 +142,7 @@ public class EditorDeGrafo extends Application{
                         double yIni = grafo.buscarVertice(e.getX(), e.getY()).getVerticeY();
                         l = new Line(xIni, yIni, e.getX(), e.getY());
                         l.setStrokeWidth(tamanho);
-                        l.setStroke(color);
+                        l.setStroke(colorPicker.getValue());
                         l.setStrokeLineCap(StrokeLineCap.ROUND);
                         pane.getChildren().add(l);
                         arestaExiste = true;
@@ -236,7 +169,7 @@ public class EditorDeGrafo extends Application{
                     if(grafo.verificarPosicaoAresta(e.getX(), e.getY())){
                         l.setEndX(grafo.buscarVertice(e.getX(), e.getY()).getVerticeX());
                         l.setEndY(grafo.buscarVertice(e.getX(), e.getY()).getVerticeY());
-                        if (!(l.getStartX() == l.getEndX() && l.getStartY() == l.getEndY())){
+                        if (!(l.getStartX() == l.getEndX() && l.getStartY() == l.getEndY()) && !grafo.mesmaAresta(l)){
                             grafo.addAresta(grafo.buscarVertice(l.getStartX(), l.getStartY()), grafo.buscarVertice(l.getEndX(), l.getEndY()), l);
                             labelArestas.setText("Arestas: " + grafo.getNumeroDeArestas());
                             labelIntersecoes.setText("Interseções: " + grafo.getNumeroDeIntersecoes());
@@ -258,7 +191,7 @@ public class EditorDeGrafo extends Application{
         /*------------------------Áreas da tela---------------------------*/
 
         VBox vBox = new VBox();
-        vBox.getChildren().setAll(btnNovo, btnSalvar, btnSair, cbTipo, cbCores, cbTamanhos, labelVertices, labelArestas, labelIntersecoes);
+        vBox.getChildren().setAll(btnNovo, btnSalvar, btnSair, cbTipo, cbCores, cbTamanhos, labelVertices, labelArestas, labelIntersecoes, colorPicker);
         vBox.setAlignment(Pos.TOP_CENTER);
 
         BorderPane borderPane = new BorderPane();
