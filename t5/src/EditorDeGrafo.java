@@ -17,24 +17,29 @@ import javafx.scene.paint.Color;
 import javafx.scene.layout.VBox;
 
 
-import java.util.ArrayList;
-
 
 
 public class EditorDeGrafo extends Application{
 
-    private Color color = Color.RED;
+    //private Color color;
     private boolean arestaExiste = false;
     private int tamanho = 10;
     Circle c;
     Line l;
 
+    public String toRGBCode(double r, double g, double b)
+    {
+        return String.format( "#%02X%02X%02X",
+                (int)( r * 255 ),
+                (int)( g * 255 ),
+                (int)( b * 255 ) );
+    }
 
     @Override
     public void start(Stage stage){
         Grafo grafo = new Grafo();
         Pane pane = new Pane();
-        ArrayList<Color> cores = new ArrayList<>();
+        //ArrayList<Color> cores = new ArrayList<>();
         int[] tamanhos = new int[3];
 
 
@@ -46,8 +51,10 @@ public class EditorDeGrafo extends Application{
 
         ColorPicker colorPicker = new ColorPicker(Color.RED);
 
+        colorPicker.getValue().getRed();
 
 
+        /*
         cores.add(Color.RED);
         cores.add(Color.ORANGERED);
         cores.add(Color.CRIMSON);
@@ -64,7 +71,7 @@ public class EditorDeGrafo extends Application{
         });
 
         cbCores.setTooltip(new Tooltip("Selecione a cor"));
-
+        */
 
         tamanhos[0] = 10;
         tamanhos[1] = 15;
@@ -131,7 +138,7 @@ public class EditorDeGrafo extends Application{
                 if (cbTipo.getValue() == "Vértice"){
                     if(grafo.verificarPosicaoVertice(e.getX(), e.getY(), tamanho)){
                         c = new Circle(e.getX(), e.getY(), tamanho, colorPicker.getValue());
-                        grafo.addVertice(c);
+                        grafo.addVertice(c, toRGBCode(colorPicker.getValue().getRed(), colorPicker.getValue().getGreen(), colorPicker.getValue().getBlue()));
                         pane.getChildren().add(c);
                         labelVertices.setText("Vértices: " + grafo.getNumeroDeVertices());
                     }
@@ -163,6 +170,7 @@ public class EditorDeGrafo extends Application{
             }
         });
 
+
         pane.setOnMouseReleased(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent e) {
                 if (cbTipo.getValue() == "Aresta"){
@@ -170,10 +178,11 @@ public class EditorDeGrafo extends Application{
                         l.setEndX(grafo.buscarVertice(e.getX(), e.getY()).getVerticeX());
                         l.setEndY(grafo.buscarVertice(e.getX(), e.getY()).getVerticeY());
                         if (!(l.getStartX() == l.getEndX() && l.getStartY() == l.getEndY()) && !grafo.mesmaAresta(l)){
-                            grafo.addAresta(grafo.buscarVertice(l.getStartX(), l.getStartY()), grafo.buscarVertice(l.getEndX(), l.getEndY()), l);
+                            grafo.addAresta(grafo.buscarVertice(l.getStartX(), l.getStartY()), grafo.buscarVertice(l.getEndX(), l.getEndY()), l, toRGBCode(colorPicker.getValue().getRed(), colorPicker.getValue().getGreen(), colorPicker.getValue().getBlue()));
                             labelArestas.setText("Arestas: " + grafo.getNumeroDeArestas());
                             labelIntersecoes.setText("Interseções: " + grafo.getNumeroDeIntersecoes());
                             arestaExiste = false;
+                            //System.out.println( toRGBCode(colorPicker.getValue().getRed(), colorPicker.getValue().getGreen(), colorPicker.getValue().getBlue()));
                         }
                         else{
                             pane.getChildren().remove(l);
@@ -191,7 +200,7 @@ public class EditorDeGrafo extends Application{
         /*------------------------Áreas da tela---------------------------*/
 
         VBox vBox = new VBox();
-        vBox.getChildren().setAll(btnNovo, btnSalvar, btnSair, cbTipo, cbCores, cbTamanhos, labelVertices, labelArestas, labelIntersecoes, colorPicker);
+        vBox.getChildren().setAll(btnNovo, btnSalvar, btnSair, cbTipo, colorPicker, cbTamanhos, labelVertices, labelArestas, labelIntersecoes);
         vBox.setAlignment(Pos.TOP_CENTER);
 
         BorderPane borderPane = new BorderPane();

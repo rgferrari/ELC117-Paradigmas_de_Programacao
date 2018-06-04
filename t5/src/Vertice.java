@@ -4,9 +4,11 @@ import java.util.ArrayList;
 public class Vertice {
     private Circle circle;
     private ArrayList<Aresta> connections;
+    String rgb = new String();
 
-    public Vertice(Circle c) {
+    public Vertice(Circle c, String rgb) {
         this.circle = c;
+        this.rgb = rgb;
         this.connections = new ArrayList<Aresta>();
     }
 
@@ -29,4 +31,8 @@ public class Vertice {
     public double getVerticeY(){
         return this.circle.getCenterY();
     }
+
+    public String getRgb(){ return this.rgb; }
+
 }
+

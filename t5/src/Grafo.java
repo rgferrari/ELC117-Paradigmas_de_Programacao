@@ -20,8 +20,8 @@ public class Grafo {
         this.numeroDeArestas = 0;
     }
 
-    public void addAresta(Vertice v1, Vertice v2, Line l) {
-        Aresta a = new Aresta(v1, v2, l);
+    public void addAresta(Vertice v1, Vertice v2, Line l, String rgb) {
+        Aresta a = new Aresta(v1, v2, l, rgb);
         this.arestas.add(a);
         v1.addLink(a);
         v2.addLink(a);
@@ -29,8 +29,8 @@ public class Grafo {
     }
 
 
-    public void addVertice(Circle c){
-        Vertice v = new Vertice(c);
+    public void addVertice(Circle c, String rgb){
+        Vertice v = new Vertice(c, rgb);
         vertices.add(v);
         this.numeroDeVertices++;
     }
@@ -113,6 +113,7 @@ public class Grafo {
         return cont/2;
     }
 
+
     public void criarSVG(){
         try {
             PrintWriter writer = new PrintWriter(new Date().getTime() + ".svg", "UTF-8");
@@ -120,10 +121,10 @@ public class Grafo {
             writer.println("<body>");
             writer.println("<svg height=\"1366\" width=\"768\">");
             for (Aresta a: this.arestas){
-                writer.println("<line x1=\""+a.getIni().getVerticeX()+"\" y1=\""+a.getIni().getVerticeY()+"\" x2=\""+a.getFim().getVerticeX()+"\" y2=\""+a.getFim().getVerticeY()+"\" style=\"stroke: rgb(255,0,0);stroke-width:"+a.getLinha().getStrokeWidth()+"\" />");
+                writer.println("<line x1=\""+a.getIni().getVerticeX()+"\" y1=\""+a.getIni().getVerticeY()+"\" x2=\""+a.getFim().getVerticeX()+"\" y2=\""+a.getFim().getVerticeY()+"\" style=\"stroke:"+a.getRgb()+";stroke-width:"+a.getLinha().getStrokeWidth()+"\" />");
             }
             for (Vertice v: this.vertices){
-                writer.println("<circle cx=\""+v.getVerticeX()+"\" cy=\""+v.getVerticeY()+"\" r=\""+v.getVerticeRadius()+"\" stroke=\"green\" stroke-width=\""+v.getVerticeCircle().getStrokeWidth()+"\" fill=\"\" />");
+                writer.println("<circle cx=\""+v.getVerticeX()+"\" cy=\""+v.getVerticeY()+"\" r=\""+v.getVerticeRadius()+"\" fill=\""+v.getRgb()+"\" />");
             }
             writer.println("</svg>");
             writer.println("</body>");
@@ -143,4 +144,6 @@ public class Grafo {
     public int getNumeroDeArestas() {
         return numeroDeArestas;
     }
+
+
 }
