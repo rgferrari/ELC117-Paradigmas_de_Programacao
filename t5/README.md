@@ -1,8 +1,8 @@
 ## Como fazer o build do programa:
 
-*Terminal*:
+**Terminal**:
 
-1. Baixe e coloque os 5 códigos.java contidos na pasta **src** em uma mesma pasta
+1. Baixe e coloque os 4 códigos .java e o código .css contidos na pasta **src** em uma mesma pasta
 
 2. No terminal compile usando o comando:
 	
@@ -16,7 +16,7 @@
 	java -cp . EditorDeGrafo
 	```
 
-*IntelliJ IDEA*:
+**IntelliJ IDEA**:
 
 1. Baixe o projeto
 
