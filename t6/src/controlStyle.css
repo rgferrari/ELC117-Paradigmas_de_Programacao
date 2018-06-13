@@ -1,0 +1,50 @@
+Button{
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+    -fx-min-width: 100;
+    -fx-min-height: 40;
+}
+
+Button:hover{
+    -fx-opacity: .8;
+}
+
+.btnLaranja{
+    -fx-background-color: orangered;
+    -fx-text-fill: white;
+}
+
+.btnVermelho{
+    -fx-background-color: red;
+    -fx-text-fill: white;
+}
+
+.btnRosa{
+    -fx-background-color: crimson;
+    -fx-text-fill: white;
+}
+
+Label{
+    -fx-padding: 0 0 0 5;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-min-width: 100;
+    -fx-min-height: 40;
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+}
+
+ChoiceBox{
+    -fx-min-width: 100;
+    -fx-min-height: 40;
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+}
+
+ColorPicker{
+    -fx-min-width: 100;
+    -fx-max-width: 100;
+    -fx-min-height: 40;
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+}
