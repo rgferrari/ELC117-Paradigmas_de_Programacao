@@ -7,7 +7,7 @@
 2. No terminal compile usando o comando:
 	
 	```
-	javac EditorDeGrafo.java
+	javac GraphAdventures.java
 	```
 
 3. Execute o programa usando o comando:
@@ -24,6 +24,6 @@
 
 3. Selecione File -> Open
 
-4. Selecione o diretorio com o projeto **t5** e clique em OK
+4. Selecione o diretorio com o projeto **t6** e clique em OK
 
 5. A seguir clique em Run 'Main'
