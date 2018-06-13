@@ -168,7 +168,7 @@ public class Grafo {
     public ArrayList<Vertice> getVertices(){
         return vertices;
     }
-    
+
 
     public void gerarGrafo(int fase){
         Random rand = new Random();
@@ -183,6 +183,7 @@ public class Grafo {
                 this.addAresta(v, v2, new Line(v.getVerticeX(), v.getVerticeY(), v2.getVerticeX(), v2.getVerticeY()), "#ff0000");
             }
         }
+
         /*
         for (Vertice vIni : vertices) {
             for (Vertice vFim : vertices) {

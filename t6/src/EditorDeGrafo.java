@@ -36,6 +36,7 @@ public class EditorDeGrafo extends Application{
 
 
 
+
         grafo.gerarGrafo(fase);
         for(Aresta a: grafo.getArestas()){
             pane.getChildren().add(a.getLine());
@@ -50,6 +51,7 @@ public class EditorDeGrafo extends Application{
         /*----------------------Botões do Menu---------------------*/
 
         Button btnNext = new Button("Next");
+        btnNext.setStyle("-fx-border-color: RED");
 
         Button btnShuffle = new Button("Shuffle");
 
@@ -137,17 +139,14 @@ public class EditorDeGrafo extends Application{
                     BorderPane passou = new BorderPane();
                     warning.setAccessibleText("ola");
                     HBox hBoxA = new HBox();
-                    //HBox hBoxB = new HBox();
                     Text t1 = new Text("Você Passou");
                     hBoxA.getChildren().add(t1);
-                    //hBoxB.getChildren().add(btnNext);
                     hBoxA.setAlignment(Pos.CENTER);
-                    //hBoxB.setAlignment(Pos.CENTER);
                     passou.setCenter(hBoxA);
-                    //passou.setCenter(hBoxB);
                     Scene NewScene = new Scene(passou, 200, 100);
                     NewGraph.setScene(NewScene);
                     NewGraph.show();
+                    btnNext.setStyle("-fx-border-color: GREEN");
                 }
             }
         });
