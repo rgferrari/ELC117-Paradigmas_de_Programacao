@@ -35,9 +35,9 @@ public class Controller {
 
     public void setBtnAction(ObservableList<TableData> data, Label lastCheck, Label lastGet, Label firstGet, Label numVehicles, ObservableList<PieChart.Data> pieChartData, BarChart bc, Stage stage){
         Map json = null;
-        File jsonFile = getArchive(stage);
+        File file = getArchive(stage);
         try {
-            FileReader fileReader = new FileReader(jsonFile);
+            FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             JSONParsing jsonParsing = new JSONParsing();
             json = jsonParsing.parseJSON(bufferedReader.readLine());
@@ -87,9 +87,8 @@ public class Controller {
 
     private File getArchive(Stage stage){
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Abrir arquivo .json");
-        File jsonFile = fileChooser.showOpenDialog(stage);
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON", "*.json"));
+        File jsonFile = fileChooser.showOpenDialog(stage);
         return jsonFile;
     }
 }

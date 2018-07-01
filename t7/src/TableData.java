@@ -2,8 +2,6 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class TableData {
-    //private final SimpleStringProperty id;
-    //private final SimpleStringProperty joke;
     private SimpleStringProperty dataHora;
     private SimpleStringProperty ordem;
     private SimpleStringProperty linha;

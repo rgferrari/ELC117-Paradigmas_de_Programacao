@@ -1,10 +1,7 @@
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
@@ -12,10 +9,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
 
 public class View extends Application {
     public static void main(String[] args) {
@@ -118,9 +111,6 @@ public class View extends Application {
         btnWeb.setOnAction(x -> controller.setBtnAction(http, data, lastCheck, lastGet, firstGet, numVehicles, pieChartData, bc));
         btnArquivo.setOnAction(x -> controller.setBtnAction(data, lastCheck, lastGet, firstGet, numVehicles, pieChartData, bc, stage));
 
-
-
-
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 10, 10, 10));
@@ -129,20 +119,12 @@ public class View extends Application {
         vbox.applyCss();
         vbox.layout();
 
-        //HBox hBox = new HBox();
-        //hBox.getChildren().addAll(lastCheck, lastGet, firstGet, numVehicles);
-
         VBox vBox1 = new VBox();
         vBox1.getChildren().addAll(pieChart, bc);
-
-        //VBox vBox2 = new VBox();
-        //vBox2.getChildren().addAll(btnWeb, btnArquivo, lastCheck, lastGet, firstGet, numVehicles);
-
 
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(vbox);
         borderPane.setRight(vBox1);
-        //borderPane.setLeft(vBox2);
 
         Scene scene = new Scene(borderPane, 1024, 576);
         scene.getStylesheets().add("Style.css");
