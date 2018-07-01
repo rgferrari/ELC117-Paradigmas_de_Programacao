@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -12,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 
@@ -33,8 +35,6 @@ public class View extends Application {
     @Override
     public void start(Stage stage) {
 
-        Scene scene = new Scene(new Group());
-
         final Label label = new Label("Onibuzinho");
         label.setFont(new Font("Comics Sans", 20));
 
@@ -43,10 +43,10 @@ public class View extends Application {
         Label firstGet = new Label(" Data-hora menos recente:  ");
         Label numVehicles = new Label(" Número de veículos:  ");
 
-        lastCheck.setStyle("-fx-font-size: 15;");
-        lastGet.setStyle("-fx-font-size: 15;");
-        firstGet.setStyle("-fx-font-size: 15;");
-        numVehicles.setStyle("-fx-font-size: 15;");
+        lastCheck.getStyleClass().add("custom-label");
+        lastGet.getStyleClass().add("custom-label");
+        firstGet.getStyleClass().add("custom-label");
+        numVehicles.getStyleClass().add("custom-label");
 
         lastCheck.setPadding(new Insets(0, 20, 0, 0));
         lastGet.setPadding(new Insets(0, 20, 0, 0));
@@ -79,7 +79,7 @@ public class View extends Application {
         final PieChart pieChart = new PieChart(pieChartData);
         pieChart.setTitle("Situação");
 
-        /* Bar Chart */
+        /* BAR CHART */
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String,Number> bc =
@@ -88,37 +88,23 @@ public class View extends Application {
         xAxis.setLabel("Linha");
         yAxis.setLabel("Quantidade");
 
-        //XYChart.Series moving = new XYChart.Series();
-        //moving.setName("Veículos em Movimento");
-        /*
-        moving.getData().add(new XYChart.Data("ola", 5));
-        moving.getData().add(new XYChart.Data("ola2", 9));
-        moving.getData().add(new XYChart.Data("olaza", 40));
-        moving.getData().add(new XYChart.Data("asdfa", 52));
-        moving.getData().add(new XYChart.Data("sadf", 12));
+        /* FORMATA COLUNA DE DATA */
+        dataCol.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    Text text = new Text(item);
 
-        bc.getData().add(moving);
-        */
-        //bc.setStyle("-fx-max-width: 100;");
-
-        dataCol.setCellFactory(column -> {
-            return new TableCell<TableData, String>() {
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item == null || empty) {
-                        setText(null);
-                        setStyle("");
-                    } else {
-                        Text text = new Text(item.toString());
-
-                        text.wrappingWidthProperty().bind(widthProperty());
-                        text.textProperty().bind(itemProperty());
-                        this.setWrapText(true);
-                        setGraphic(text);
-                    }
+                    text.wrappingWidthProperty().bind(widthProperty());
+                    text.textProperty().bind(itemProperty());
+                    this.setWrapText(true);
+                    setGraphic(text);
                 }
-            };
+            }
         });
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -126,33 +112,41 @@ public class View extends Application {
 
         table.setItems(data);
 
-        Button btn = new Button("Atualizar");
+        Button btnWeb = new Button("Atualizar");
+        Button btnArquivo = new Button("Pegar Arquivo");
 
-        controller.setBtnAction(btn, http, data, lastCheck, lastGet, firstGet, numVehicles, pieChartData, bc);
+        btnWeb.setOnAction(x -> controller.setBtnAction(http, data, lastCheck, lastGet, firstGet, numVehicles, pieChartData, bc));
+        btnArquivo.setOnAction(x -> controller.setBtnAction(data, lastCheck, lastGet, firstGet, numVehicles, pieChartData, bc, stage));
+
+
+
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 10, 10, 10));
-        vbox.getChildren().addAll(label, table, btn);
+        vbox.getChildren().addAll(label, table, btnWeb, btnArquivo, lastCheck, lastGet, firstGet, numVehicles);
 
         vbox.applyCss();
         vbox.layout();
 
-
-
-        HBox hBox = new HBox();
-        hBox.getChildren().addAll(lastCheck, lastGet, firstGet, numVehicles);
+        //HBox hBox = new HBox();
+        //hBox.getChildren().addAll(lastCheck, lastGet, firstGet, numVehicles);
 
         VBox vBox1 = new VBox();
         vBox1.getChildren().addAll(pieChart, bc);
+
+        //VBox vBox2 = new VBox();
+        //vBox2.getChildren().addAll(btnWeb, btnArquivo, lastCheck, lastGet, firstGet, numVehicles);
 
 
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(vbox);
         borderPane.setRight(vBox1);
-        borderPane.setBottom(hBox);
+        //borderPane.setLeft(vBox2);
 
-        stage.setScene(new Scene(borderPane, 1024, 576));
+        Scene scene = new Scene(borderPane, 1024, 576);
+        scene.getStylesheets().add("Style.css");
+        stage.setScene(scene);
         stage.show();
     }
 }
